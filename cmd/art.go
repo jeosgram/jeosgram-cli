@@ -8,7 +8,7 @@ https://patorjk.com/software/taag/#p=testall&f=Graffiti&t=Jeosgram
 
 */
 
-const jeosgramArt = jeosgramArt1 + "Jeosgram CLI client " + api.Version
+const jeosgramArt = jeosgramArt2 + "Jeosgram CLI client " + api.Version
 
 const jeosgramArt1 = `
    ▄▄▄██▀▀▀▓█████  ▒█████    ██████   ▄████  ██▀███   ▄▄▄       ███▄ ▄███▓

@@ -10,14 +10,18 @@ El CLI esta construido sobre:
 
 Todavia no hay instalador, sin embargo se puede compilar como cualquier programa de go
 ```bash
-go build -ldflags "-s -w" -o jeosgram main.go
+go build -ldflags "-s -w" -o jeosgram_linux main.go
 ```
 
 En caso de windows
 ```bash
-GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o jeosgram.exe main.go
+GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o jeosgram_win.exe main.go
 ```
 
+Abdroid
+```bash
+CGO_ENABLED=0 GOOS=android GOARCH=arm64 go build -ldflags "-s -w" -o jeosgram_android main.go
+```
 
 ### TODO
 

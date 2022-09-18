@@ -2,12 +2,13 @@ package api
 
 import (
 	"bytes"
-	"constraints"
 	"encoding/json"
 	"fmt"
 	"net/http"
 	"net/http/httputil"
 	"time"
+
+	"golang.org/x/exp/constraints"
 
 	"gitlab.com/jeosgram-go/jeosgram-cli/session"
 )
@@ -18,9 +19,9 @@ const Version = "v0.0.1"
 
 //const accessToken = "AQABAZR192EDWdDSkLuVe_0cecwewl7QppDRwQ"
 
-//const apiURL = "http://api.jeosgram.io"
+const apiURL = "http://api.jeosgram.io:8080"
 
-const apiURL = "http://localhost:8080"
+//const apiURL = "http://localhost:8080"
 
 const (
 	userAgent = "Jeosgram-CLI/" + Version

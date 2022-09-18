@@ -10,8 +10,7 @@ import (
 	"gitlab.com/jeosgram-go/jeosgram-cli/session"
 )
 
-var errorTemplate = `{{ .Error.Error }}
-`
+var errorTemplate = "{{ .Error.Error }}\n"
 
 var (
 	pInfo    = pterm.FgYellow.Sprint("!")
