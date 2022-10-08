@@ -25,8 +25,8 @@ func showBusySpinner(text ...any) func(...any) {
 
 func sliceAt[T any](s []T, i int) (T, bool) {
 	var tmp T
-	if len(s) <= i {
-		return tmp, false
+	if i < len(s) {
+		return s[i], true
 	}
-	return s[i], true
+	return tmp, false
 }

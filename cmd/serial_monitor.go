@@ -63,6 +63,7 @@ func init() {
 	serialMonitorCmd.Flags().StringP("port", "p", "", "set port serial")
 	serialMonitorCmd.Flags().IntP("baudrate", "b", 115200, "set baudrate")
 
+	// TODO() falta
 	serialMonitorCmd.Flags().BoolP("follow", "f", false, "reconnect enable")
 
 	// Here you will define your flags and configuration settings.

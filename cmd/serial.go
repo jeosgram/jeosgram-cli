@@ -7,7 +7,7 @@ import (
 // serialCmd represents the serial command
 var serialCmd = &cobra.Command{
 	Use:   "serial",
-	Short: "A brief description of your command",
+	Short: "Simple serial interface to your devices",
 }
 
 func init() {

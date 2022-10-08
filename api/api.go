@@ -19,9 +19,9 @@ const Version = "v0.0.1"
 
 //const accessToken = "AQABAZR192EDWdDSkLuVe_0cecwewl7QppDRwQ"
 
-const apiURL = "http://api.jeosgram.io:8080"
+// const apiURL = "http://api.jeosgram.io:8080"
 
-//const apiURL = "http://localhost:8080"
+const apiURL = "http://localhost:8080"
 
 const (
 	userAgent = "Jeosgram-CLI/" + Version
@@ -98,8 +98,13 @@ func (api JeosgramAPI) raw(method, uri string, body []byte) (*http.Response, err
 	}
 
 	if debug /*&& !isOK(res)*/ {
-		isStream := res.Header.Get("Transfer-Encoding") == "chunked"
-		raw, _ := httputil.DumpResponse(res, isStream)
+		/*
+			https://github.com/golang/go/issues/27061
+
+			no puede obtener `transfer-encoding `
+		*/
+		isStream := res.Header.Get("Content-Type") == "text/event-stream"
+		raw, _ := httputil.DumpResponse(res, !isStream)
 		fmt.Printf("\n-------\n%q\n-------\n", raw)
 	}
 

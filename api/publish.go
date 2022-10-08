@@ -1,8 +1,17 @@
 package api
 
-import "io"
+import (
+	"errors"
+	"io"
+	"strings"
+)
 
 func (api JeosgramAPI) Publish(eventName, eventData string) error {
+	eventName = strings.TrimSpace(eventName)
+	if eventName == "" {
+		return errors.New("event name is required")
+	}
+
 	values := httpValue{
 		"name": eventName,
 		"data": eventData,

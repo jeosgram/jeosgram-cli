@@ -73,4 +73,11 @@ var loginCmd = &cobra.Command{
 
 func init() {
 	rootCmd.AddCommand(loginCmd)
+
+	// TODO() no implementado
+	loginCmd.Flags().StringP("username", "u", "", "your username")
+	loginCmd.Flags().StringP("password", "p", "", "your password")
+
+	loginCmd.Flags().StringP("token", "t", "", "an existing Jeosgram access token to use")
+
 }
