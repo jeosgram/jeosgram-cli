@@ -1,6 +1,10 @@
 package api
 
-import "fmt"
+import (
+	"encoding/json"
+	"fmt"
+	"io"
+)
 
 func fmtUriRequestDevice(deviceID, name string) string {
 	return fmt.Sprintf("/v1/devices/%s/%s", deviceID, name)
@@ -8,20 +12,51 @@ func fmtUriRequestDevice(deviceID, name string) string {
 
 // -------------------------------------
 
-func (api JeosgramAPI) CallFunction(deviceID, funcName, funcParam string) {
-	url := apiURL + fmtUriRequestDevice(deviceID, funcName)
-	_ = url
+func (api JeosgramAPI) CallFunction(deviceID, funcName, funcParam string) (any, error) {
+	uri := fmtUriRequestDevice(deviceID, funcName)
 
-	// post
+	res, err := api.post(uri, httpValue{"arg": funcParam})
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
+
+	data, _ := io.ReadAll(res.Body)
+
+	if !isOK(res) {
+		return nil, errorResponse(data)
+	}
+
+	var v struct {
+		Value any `json:"return"`
+	}
+	_ = json.Unmarshal(data, &v)
+
+	return v.Value, nil
 }
 
-func (api JeosgramAPI) GetVariable(deviceID, varName string) {
-	url := apiURL + fmtUriRequestDevice(deviceID, varName)
-	_ = url
+func (api JeosgramAPI) GetVariable(deviceID, varName string) (any, error) {
+	uri := fmtUriRequestDevice(deviceID, varName)
+	res, err := api.get(uri)
+	if err != nil {
+		return nil, err
+	}
+	defer res.Body.Close()
 
-	// get
+	data, _ := io.ReadAll(res.Body)
+
+	if !isOK(res) {
+		return nil, errorResponse(data)
+	}
+
+	var v struct {
+		Value any `json:"value"`
+	}
+	_ = json.Unmarshal(data, &v)
+
+	return v.Value, nil
 }
 
 func (api JeosgramAPI) SignalDevice(deviceID string, signal bool) {
-
+	// put
 }

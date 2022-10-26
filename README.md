@@ -18,7 +18,7 @@ En caso de windows
 GOOS=windows GOARCH=amd64 go build -ldflags "-s -w" -o jeosgram_win.exe main.go
 ```
 
-Abdroid
+Android
 ```bash
 CGO_ENABLED=0 GOOS=android GOARCH=arm64 go build -ldflags "-s -w" -o jeosgram_android main.go
 ```
