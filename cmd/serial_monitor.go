@@ -22,8 +22,17 @@ var serialMonitorCmd = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		baudrate, _ := cmd.Flags().GetInt("baudrate")
 		portName, _ := cmd.Flags().GetString("port")
+		follow, _ := cmd.Flags().GetBool("follow")
 
 		if portName == "" {
+			// TODO() add
+			if follow && false {
+				stopSpinner := showBusySpinner("Polling for available serial device...")
+				for {
+					break
+				}
+				stopSpinner()
+			}
 			portName, _ = getFisrtPort()
 		}
 
@@ -75,7 +84,7 @@ func getFisrtPort() (string, bool) {
 	}
 
 	if len(ports) == 0 {
-		log.Fatal("No serial ports found!")
+		log.Fatal("No serial ports found!") // TODO() mover
 		return "", false
 
 	}

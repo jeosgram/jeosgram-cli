@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"io"
 	"strings"
+	"time"
 )
 
 /*
@@ -38,10 +39,10 @@ func valueSSE(s string) (string, bool) {
 // -------------------------------------
 
 type JeosgramEvent struct {
-	Event  string `json:"event"`
-	Data   string `json:"data,omitempty"`
-	Date   string `json:"date"`
-	Coreid string `json:"coreid"`
+	Event  string    `json:"event"`
+	Data   string    `json:"data,omitempty"`
+	Date   time.Time `json:"date"`
+	CoreID string    `json:"coreid"`
 }
 
 func (api JeosgramAPI) EventStream(deviceID, eventName string, fun func(event JeosgramEvent) bool) error {

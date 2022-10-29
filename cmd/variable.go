@@ -7,7 +7,7 @@ import (
 // variableCmd represents the variable command
 var variableCmd = &cobra.Command{
 	Use:   "variable",
-	Short: "A brief description of your command",
+	Short: "Retrieve and monitor variables on your device(s)",
 }
 
 func init() {

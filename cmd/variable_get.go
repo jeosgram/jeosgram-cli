@@ -8,8 +8,8 @@ import (
 
 // variableGetCmd represents the variableGet command
 var variableGetCmd = &cobra.Command{
-	Use:   "get",
-	Short: "A brief description of your command",
+	Use:   "get <device> <variableName>",
+	Short: "Retrieve a value from your device(s)",
 	Args:  cobra.RangeArgs(1, 2),
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("variableGet called")
