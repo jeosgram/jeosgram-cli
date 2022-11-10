@@ -1,0 +1,20 @@
+project_name: Jeosgram-CLI
+builds:
+  - env: 
+    - CGO_ENABLED=0
+    goos:
+      - linux
+      - windows
+      - darwin
+    goarch:
+      - amd64
+      - arm64
+nfpms:
+- maintainer: Emmanuel Ortiz <eortiz@jeosgram.io>
+  description: Jeosgram CLI.
+  homepage: https://gitlab.com/jeosgram/jeosgram-cli
+  license: MIT
+  formats:
+  - deb
+  - rpm
+  - apk
