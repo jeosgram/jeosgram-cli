@@ -26,3 +26,6 @@ jeosgram_*
 ### Go Patch ###
 /vendor/
 /Godeps/
+dist/
+
+dist/

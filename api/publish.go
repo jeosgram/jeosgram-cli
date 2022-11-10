@@ -12,10 +12,13 @@ func (api JeosgramAPI) Publish(eventName, eventData string) error {
 		return errors.New("event name is required")
 	}
 
-	values := httpValue{
-		"name": eventName,
-		"data": eventData,
-		//"encode" : encode, // [hex | base16] | base32 | base64
+	values := struct {
+		Event  string `json:"name"`
+		Data   string `json:"data,omitempty"`
+		Encode string `json:"encode,omitempty"` // [hex | base16] | base32 | base64
+	}{
+		Event: eventName,
+		Data:  eventData,
 	}
 
 	res, err := api.post("/v1/devices/events", values)

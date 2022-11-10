@@ -1,7 +1,7 @@
 package main
 
 import (
-	"gitlab.com/jeosgram-go/jeosgram-cli/cmd"
+	"gitlab.com/jeosgram/jeosgram-cli/cmd"
 )
 
 /*

@@ -6,8 +6,8 @@ import (
 	"github.com/AlecAivazis/survey/v2"
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
-	"gitlab.com/jeosgram-go/jeosgram-cli/api"
-	"gitlab.com/jeosgram-go/jeosgram-cli/session"
+	"gitlab.com/jeosgram/jeosgram-cli/api"
+	"gitlab.com/jeosgram/jeosgram-cli/session"
 )
 
 var errorTemplate = "{{ .Error.Error }}\n"

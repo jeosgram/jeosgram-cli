@@ -8,7 +8,7 @@ import (
 	"strings"
 
 	"github.com/spf13/cobra"
-	"gitlab.com/jeosgram-go/jeosgram-cli/api"
+	"gitlab.com/jeosgram/jeosgram-cli/api"
 )
 
 const subscribeEj = `jeosgram subscribe         Subscribe to all event published

@@ -5,8 +5,8 @@ import (
 	"os"
 
 	"github.com/spf13/cobra"
-	"gitlab.com/jeosgram-go/jeosgram-cli/api"
-	"gitlab.com/jeosgram-go/jeosgram-cli/session"
+	"gitlab.com/jeosgram/jeosgram-cli/api"
+	"gitlab.com/jeosgram/jeosgram-cli/session"
 )
 
 var jeosgram *api.JeosgramAPI
@@ -32,6 +32,8 @@ func Execute() {
 
 func init() {
 	cobra.OnInitialize(initConfig)
+
+	rootCmd.CompletionOptions.HiddenDefaultCmd = true // oculta comando `completion`
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,

@@ -10,7 +10,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 
-	"gitlab.com/jeosgram-go/jeosgram-cli/session"
+	"gitlab.com/jeosgram/jeosgram-cli/session"
 )
 
 func Urlencode(m httpValue) []byte {

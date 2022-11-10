@@ -1,6 +1,6 @@
 package cmd
 
-import "gitlab.com/jeosgram-go/jeosgram-cli/api"
+import "gitlab.com/jeosgram/jeosgram-cli/api"
 
 /*
 
@@ -8,7 +8,7 @@ https://patorjk.com/software/taag/#p=testall&f=Graffiti&t=Jeosgram
 
 */
 
-const jeosgramArt = jeosgramArt2 + "Jeosgram CLI client " + api.Version
+const jeosgramArt = jeosgramArt2 + "\nJeosgram CLI client " + api.Version
 
 const jeosgramArt1 = `
    ▄▄▄██▀▀▀▓█████  ▒█████    ██████   ▄████  ██▀███   ▄▄▄       ███▄ ▄███▓
@@ -20,8 +20,7 @@ const jeosgramArt1 = `
    ▒ ░▒░    ░ ░  ░  ░ ▒ ▒░ ░ ░▒  ░ ░  ░   ░   ░▒ ░ ▒░  ▒   ▒▒ ░░  ░      ░
    ░ ░ ░      ░   ░ ░ ░ ▒  ░  ░  ░  ░ ░   ░   ░░   ░   ░   ▒   ░      ░   
    ░   ░      ░  ░    ░ ░        ░        ░    ░           ░  ░       ░   
-  
-  `
+`
 
 const jeosgramArt2 = `
        ██╗███████╗ ██████╗ ███████╗ ██████╗ ██████╗  █████╗ ███╗   ███╗
@@ -30,5 +29,4 @@ const jeosgramArt2 = `
   ██   ██║██╔══╝  ██║   ██║╚════██║██║   ██║██╔══██╗██╔══██║██║╚██╔╝██║
   ╚█████╔╝███████╗╚██████╔╝███████║╚██████╔╝██║  ██║██║  ██║██║ ╚═╝ ██║
    ╚════╝ ╚══════╝ ╚═════╝ ╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚═╝     ╚═╝
-  
-  `
+`
