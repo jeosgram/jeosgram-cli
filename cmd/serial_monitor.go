@@ -6,7 +6,6 @@ import (
 
 	"github.com/spf13/cobra"
 	"go.bug.st/serial"
-	"go.bug.st/serial/enumerator"
 )
 
 /*
@@ -77,7 +76,7 @@ func init() {
 }
 
 func getFisrtPort() (string, bool) {
-	ports, err := enumerator.GetDetailedPortsList()
+	ports, err := serial.GetPortsList()
 
 	if err != nil {
 		log.Fatal(err)
@@ -89,5 +88,5 @@ func getFisrtPort() (string, bool) {
 
 	}
 
-	return ports[0].Name, true
+	return ports[0], true
 }
