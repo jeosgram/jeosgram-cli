@@ -7,8 +7,8 @@ import (
 	"regexp"
 	"strings"
 
+	"github.com/jeosgram/jeosgram-cli/api"
 	"github.com/spf13/cobra"
-	"gitlab.com/jeosgram/jeosgram-cli/api"
 )
 
 const subscribeEj = `jeosgram subscribe         Subscribe to all event published

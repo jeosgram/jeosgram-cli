@@ -4,10 +4,10 @@ import (
 	"fmt"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/jeosgram/jeosgram-cli/api"
+	"github.com/jeosgram/jeosgram-cli/session"
 	"github.com/pterm/pterm"
 	"github.com/spf13/cobra"
-	"gitlab.com/jeosgram/jeosgram-cli/api"
-	"gitlab.com/jeosgram/jeosgram-cli/session"
 )
 
 var errorTemplate = "{{ .Error.Error }}\n"

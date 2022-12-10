@@ -1,4 +1,4 @@
-module gitlab.com/jeosgram/jeosgram-cli
+module github.com/jeosgram/jeosgram-cli
 
 go 1.19
 

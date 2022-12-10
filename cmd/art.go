@@ -1,6 +1,6 @@
 package cmd
 
-import "gitlab.com/jeosgram/jeosgram-cli/api"
+import "github.com/jeosgram/jeosgram-cli/api"
 
 /*
 

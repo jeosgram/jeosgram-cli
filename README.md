@@ -27,3 +27,6 @@ CGO_ENABLED=0 GOOS=android GOARCH=arm64 go build -ldflags "-s -w" -o jeosgram_an
 
 - [ ] script para administrar los lanzamientos en distintas plataformas o aprender a usar [goreleaser](https://goreleaser.com)
 
+
+https://carlosbecker.com/posts/golang-completions-cobra/
+

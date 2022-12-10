@@ -1,3 +1,6 @@
+//go:build !darwin
+// +build !darwin
+
 package cmd
 
 import (
@@ -16,7 +19,7 @@ func serialPortsList() {
 		log.Fatal("No serial ports found!")
 	}
 	for _, port := range ports {
-		fmt.Printf("Found port: %s\n", port.Name)
+		fmt.Printf("\nFound port: %s\n", port.Name)
 		if port.IsUSB {
 			fmt.Printf("\tUSB ID     %s:%s\n", port.VID, port.PID)
 			fmt.Printf("\tUSB serial %s\n", port.SerialNumber)

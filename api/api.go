@@ -10,7 +10,7 @@ import (
 
 	"golang.org/x/exp/constraints"
 
-	"gitlab.com/jeosgram/jeosgram-cli/session"
+	"github.com/jeosgram/jeosgram-cli/session"
 )
 
 const debug = false

@@ -4,9 +4,9 @@ import (
 	"fmt"
 	"os"
 
+	"github.com/jeosgram/jeosgram-cli/api"
+	"github.com/jeosgram/jeosgram-cli/session"
 	"github.com/spf13/cobra"
-	"gitlab.com/jeosgram/jeosgram-cli/api"
-	"gitlab.com/jeosgram/jeosgram-cli/session"
 )
 
 var jeosgram *api.JeosgramAPI

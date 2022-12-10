@@ -12,7 +12,7 @@ builds:
 nfpms:
 - maintainer: Emmanuel Ortiz <eortiz@jeosgram.io>
   description: Jeosgram CLI.
-  homepage: https://gitlab.com/jeosgram/jeosgram-cli
+  homepage: https://github.com/jeosgram/jeosgram-cli
   license: MIT
   formats:
   - deb
