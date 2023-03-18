@@ -1,7 +1,13 @@
 name: PR tests check
 
 on:
+  push:
+    branches-ignore:
+      - master
   pull_request:
+    types:
+      - opened
+      - reopened
     branches-ignore:
       - master
 jobs:
