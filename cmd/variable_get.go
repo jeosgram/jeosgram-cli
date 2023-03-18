@@ -3,36 +3,41 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/jeosgram/jeosgram-cli/api"
+	"github.com/jeosgram/jeosgram-cli/constants"
+	"github.com/jeosgram/jeosgram-cli/services"
+	"github.com/jeosgram/jeosgram-cli/utils"
 	"github.com/spf13/cobra"
 )
 
 // variableGetCmd represents the variableGet command
-var variableGetCmd = &cobra.Command{
-	Use:   "get <device> <variableName>",
-	Short: "Retrieve a value from your device(s)",
-	Args:  cobra.RangeArgs(1, 2),
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("variableGet called")
+func NewGetVariableCmd(jeosgram api.JeosgramClient, screenService services.ScreenService) *cobra.Command {
 
-		deviceID, _ := sliceAt(args, 0)
-		varName, _ := sliceAt(args, 1)
+	getVariableCmd := &cobra.Command{
+		Use:   "get <device> <variableName>",
+		Short: "Retrieve a value from your device(s)",
+		Args:  cobra.RangeArgs(1, 2),
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("variableGet called")
 
-		// TODO() verificar deviceID, logitudes....
+			deviceID, _ := utils.SliceAt(args, 0)
+			varName, _ := utils.SliceAt(args, 1)
 
-		stopSpinner := showBusySpinner("Getting variable:", varName)
-		value, err := jeosgram.GetVariable(deviceID, varName)
-		stopSpinner()
+			// TODO() verificar deviceID, logitudes....
 
-		if err != nil {
-			fmt.Println(pInfo, err)
-			return
-		}
+			stopSpinner := screenService.ShowBusySpinner("Getting variable:", varName)
+			value, err := jeosgram.GetVariable(deviceID, varName)
+			stopSpinner()
 
-		fmt.Println("Variable value:", value)
+			if err != nil {
+				fmt.Println(constants.PInfo, err)
+				return
+			}
 
-	},
-}
+			fmt.Println("Variable value:", value)
 
-func init() {
-	variableCmd.AddCommand(variableGetCmd)
+		},
+	}
+
+	return getVariableCmd
 }

@@ -7,14 +7,14 @@ import (
 )
 
 // functionListCmd represents the functionList command
-var functionListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Show functions provided by your device(s)",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("functionList called")
-	},
-}
+func NewFunctionListCmd() *cobra.Command {
 
-func init() {
-	functionCmd.AddCommand(functionListCmd)
+	functionListCmd := &cobra.Command{
+		Use:   "list",
+		Short: "Show functions provided by your device(s)",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("functionList called")
+		},
+	}
+	return functionListCmd
 }

@@ -10,7 +10,8 @@ import (
 	"net/http/httputil"
 	"net/url"
 
-	"github.com/jeosgram/jeosgram-cli/session"
+	"github.com/jeosgram/jeosgram-cli/constants"
+	"github.com/jeosgram/jeosgram-cli/types"
 )
 
 func Urlencode(m httpValue) []byte {
@@ -22,7 +23,7 @@ func Urlencode(m httpValue) []byte {
 }
 
 func requestOauthToken(data httpValue) (*http.Response, error) {
-	url := apiURL + "/oauth/token"
+	url := constants.ApiURL + "/oauth/token"
 
 	body, _ := json.Marshal(data)
 	//body := Urlencode(data)
@@ -33,7 +34,7 @@ func requestOauthToken(data httpValue) (*http.Response, error) {
 	)
 	req.Header.Set("Content-Type", "application/json")
 	//req.Header.Set("Content-Type", "application/x-www-form-urlencoded")
-	req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("User-Agent", constants.UserAgent)
 
 	if debug {
 		raw, _ := httputil.DumpRequestOut(req, true)
@@ -63,20 +64,10 @@ func errorResponse(data []byte) error {
 
 // ----------------------------
 
-const (
-	msgRequiredMFA  = "Multi-factor authentication required"
-	msgInvalidToken = "The access token provided is invalid"
-)
-
-var (
-	ErrRequiredMFA  = errors.New(msgRequiredMFA)
-	ErrInvalidToken = errors.New(msgInvalidToken)
-)
-
-func (api JeosgramAPI) LoginByPassword(username, password string) (*session.Token, string, error) {
+func (api JeosgramAPI) LoginByPassword(username, password string) (*types.Token, string, error) {
 	res, err := requestOauthToken(httpValue{
-		"client_id":     clientID,
-		"client_secret": clientSecret,
+		"client_id":     constants.ClientID,
+		"client_secret": constants.ClientSecret,
 		"grant_type":    "password",
 		"username":      username,
 		"password":      password,
@@ -94,23 +85,23 @@ func (api JeosgramAPI) LoginByPassword(username, password string) (*session.Toke
 			MFAToken string `json:"mfa_token"`
 		}
 		_ = json.Unmarshal(data, &v)
-		return nil, v.MFAToken, ErrRequiredMFA
+		return nil, v.MFAToken, constants.ErrRequiredMFA
 	}
 
 	if !isOK(res) {
 		return nil, "", errorResponse(data)
 	}
 
-	var token session.Token
+	var token types.Token
 	_ = json.Unmarshal(data, &token)
 
 	return &token, "", nil
 }
 
-func (api JeosgramAPI) LoginByMFAOtp(mfaToken, otp string) (*session.Token, error) {
+func (api JeosgramAPI) LoginByMFAOtp(mfaToken, otp string) (*types.Token, error) {
 	res, err := requestOauthToken(httpValue{
-		"client_id":     clientID,
-		"client_secret": clientSecret,
+		"client_id":     constants.ClientID,
+		"client_secret": constants.ClientSecret,
 		"grant_type":    "urn:custom:mfa-otp",
 		"mfa_token":     mfaToken,
 		"otp":           otp,
@@ -126,16 +117,16 @@ func (api JeosgramAPI) LoginByMFAOtp(mfaToken, otp string) (*session.Token, erro
 		return nil, errorResponse(data)
 	}
 
-	var token session.Token
+	var token types.Token
 	_ = json.Unmarshal(data, &token)
 	return &token, nil
 
 }
 
-func (api JeosgramAPI) LoginByRefreshToken(refreshToken string) (*session.Token, error) {
+func (api JeosgramAPI) LoginByRefreshToken(refreshToken string) (*types.Token, error) {
 	res, err := requestOauthToken(httpValue{
-		"client_id":     clientID,
-		"client_secret": clientSecret,
+		"client_id":     constants.ClientID,
+		"client_secret": constants.ClientSecret,
 		"grant_type":    "refresh_token",
 		"refresh_token": refreshToken,
 	})
@@ -150,7 +141,7 @@ func (api JeosgramAPI) LoginByRefreshToken(refreshToken string) (*session.Token,
 		return nil, errorResponse(data)
 	}
 
-	var token session.Token
+	var token types.Token
 	_ = json.Unmarshal(data, &token)
 	return &token, nil
 }

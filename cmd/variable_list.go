@@ -21,15 +21,13 @@ import (
 	"github.com/spf13/cobra"
 )
 
-// variableListCmd represents the variableList command
-var variableListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "Show variables provided by your device(s)",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("variableList called")
-	},
-}
-
-func init() {
-	variableCmd.AddCommand(variableListCmd)
+func NewVariableListCmd() *cobra.Command {
+	variableListCmd := &cobra.Command{
+		Use:   "list",
+		Short: "Show variables provided by your device(s)",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("variableList called")
+		},
+	}
+	return variableListCmd
 }

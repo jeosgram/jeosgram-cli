@@ -2,6 +2,13 @@ package main
 
 import (
 	"github.com/jeosgram/jeosgram-cli/cmd"
+	"github.com/pterm/pterm"
+)
+
+var (
+	pInfo    = pterm.FgYellow.Sprint("!")
+	pError   = pterm.FgRed.Sprint(">>")
+	pSuccess = pterm.FgGreen.Sprint(">")
 )
 
 /*

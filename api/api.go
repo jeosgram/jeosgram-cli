@@ -8,29 +8,14 @@ import (
 	"net/http/httputil"
 	"time"
 
-	"golang.org/x/exp/constraints"
-
+	"github.com/jeosgram/jeosgram-cli/constants"
+	"github.com/jeosgram/jeosgram-cli/services"
 	"github.com/jeosgram/jeosgram-cli/session"
+	"github.com/jeosgram/jeosgram-cli/types"
+	"golang.org/x/exp/constraints"
 )
 
 const debug = false
-
-const Version = "v0.0.1"
-
-//const accessToken = "AQABAZR192EDWdDSkLuVe_0cecwewl7QppDRwQ"
-
-const apiURL = "https://api.jeosgram.io"
-
-// const apiURL = "http://localhost:8089"
-
-const (
-	userAgent = "Jeosgram-CLI/" + Version
-
-	clientID     = "jeosgram-cli"
-	clientSecret = "jeosgram-cli"
-
-	minApiDelay = 400 * time.Millisecond
-)
 
 func isOK(res *http.Response) bool {
 	return res.StatusCode == http.StatusOK
@@ -53,13 +38,27 @@ func hasBadToken(body []byte) bool {
 
 type httpValue = map[string]any
 
-type JeosgramAPI struct {
-	token string
+//go:generate moq -out api_test.go . JeosgramClient
+type JeosgramClient interface {
+	CallFunction(deviceID, funcName, funcParam string) (any, error)
+	GetVariable(deviceID, varName string) (any, error)
+	SignalDevice(deviceID string, signal bool)
+	LoginByPassword(username, password string) (*types.Token, string, error)
+	LoginByMFAOtp(mfaToken, otp string) (*types.Token, error)
+	LoginByRefreshToken(refreshToken string) (*types.Token, error)
+	Publish(eventName, eventData string) error
+	EventStream(deviceID, eventName string, fun func(event JeosgramEvent) bool) error
 }
 
-func NewJeosgramAPI(token string) *JeosgramAPI {
+type JeosgramAPI struct {
+	token          string
+	sessionService services.SessionService
+}
+
+func NewJeosgramAPI(token string, sessionService services.SessionService) *JeosgramAPI {
 	return &JeosgramAPI{
-		token: "Bearer " + token,
+		token:          "Bearer " + token,
+		sessionService: sessionService,
 	}
 }
 
@@ -75,13 +74,13 @@ func (api JeosgramAPI) get(uri string) (*http.Response, error) {
 func (api JeosgramAPI) raw(method, uri string, body []byte) (*http.Response, error) {
 	start := time.Now()
 
-	url := apiURL + uri
+	url := constants.ApiURL + uri
 	req, _ := http.NewRequest(
 		method,
 		url,
 		bytes.NewReader(body),
 	)
-	req.Header.Set("User-Agent", userAgent)
+	req.Header.Set("User-Agent", constants.UserAgent)
 	req.Header.Set("Authorization", api.token)
 	if body != nil {
 		req.Header.Set("Content-Type", "application/json") // voy a suponer q solo se envia json
@@ -117,14 +116,14 @@ func (api JeosgramAPI) raw(method, uri string, body []byte) (*http.Response, err
 			// msg requiere login
 			panic(err)
 		}
-		session.SaveTokens(token)
+		api.sessionService.SaveTokens(token)
 
 		// reintento la peticion
-		return NewJeosgramAPI(token.AccessToken).raw(method, uri, body)
+		return NewJeosgramAPI(token.AccessToken, api.sessionService).raw(method, uri, body)
 	}
 
 	duration := time.Since(start)
-	delay := Max(minApiDelay-duration, 0)
+	delay := Max(constants.MinApiDelay-duration, 0)
 	if debug {
 		fmt.Printf("duration=%v delay=%v\n", duration, delay)
 	}
