@@ -1,4 +1,4 @@
-name: PR tests check
+name: PR check
 
 on:
   push:
@@ -11,9 +11,13 @@ on:
     branches-ignore:
       - master
 jobs:
-  run-tests:
+  checks:
     runs-on: ubuntu-latest
     steps:
+      - name: Snyk scan
+        uses: snyk/actions/golang@master
+        env:
+          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
       - name: Checking out code
         uses: actions/checkout@v3
 

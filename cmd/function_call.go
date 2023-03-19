@@ -22,12 +22,6 @@ func NewFunctionCallCmd(jeosgram api.JeosgramClient, screenService services.Scre
 			funcName, _ := utils.SliceAt(args, 1)
 			funcParam, _ := utils.SliceAt(args, 2)
 
-			fmt.Println(deviceID)
-			fmt.Println(funcName)
-			fmt.Println(funcParam)
-
-			// TODO() verificar deviceID, logitudes....
-
 			stopSpinner := screenService.ShowBusySpinner("Calling function:", funcName)
 			value, err := jeosgram.CallFunction(deviceID, funcName, funcParam)
 			stopSpinner()
