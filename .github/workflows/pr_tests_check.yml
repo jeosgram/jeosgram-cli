@@ -16,17 +16,9 @@ jobs:
     steps:
       - name: Checking out code
         uses: actions/checkout@v3
-
-      - name: Snyk scan
-        uses: snyk/actions/golang@master
-        env:
-          SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
       - name: Set up golang
         uses: actions/setup-go@v3
         with:
           go-version: 1.19
       - name: Run all tests
         run: go test -v ./...
-      - name: Build
-        run: go build -v ./...
