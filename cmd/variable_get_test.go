@@ -51,7 +51,11 @@ func Test_GetVariableCommand(t *testing.T) {
 
 			_, err := cmd.ExecuteC()
 
-			assert.Nil(t, err)
+			if tt.shouldFail {
+				assert.NotNil(t, err)
+			} else {
+				assert.Nil(t, err)
+			}
 
 			jeosgramApi.AssertCalled(t, "GetVariable", tt.deviceId, tt.variableName)
 			jeosgramApi.AssertNumberOfCalls(t, "GetVariable", 1)

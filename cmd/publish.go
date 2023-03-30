@@ -20,7 +20,7 @@ func NewPublishCmd(jeosgram api.JeosgramClient, screenService services.ScreenSer
 		Short:   "Publish an event to the cloud",
 		Example: publishEj,
 		Args:    cobra.RangeArgs(1, 2),
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			eventName, _ := utils.SliceAt(args, 0)
 			eventData, _ := utils.SliceAt(args, 1)
 
@@ -35,10 +35,11 @@ func NewPublishCmd(jeosgram api.JeosgramClient, screenService services.ScreenSer
 
 			if err != nil {
 				fmt.Println(constants.PError, "Error publishing event:", err)
-				return
+				return err
 			}
 
 			fmt.Println("Published event:", eventName)
+			return nil
 		},
 	}
 

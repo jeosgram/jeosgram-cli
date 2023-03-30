@@ -52,7 +52,11 @@ func Test_PublishCommand(t *testing.T) {
 
 			_, err := cmd.ExecuteC()
 
-			assert.Nil(t, err)
+			if tt.shouldFail {
+				assert.NotNil(t, err)
+			} else {
+				assert.Nil(t, err)
+			}
 
 			jeosgramApi.AssertCalled(t, "Publish", tt.eventName, tt.eventData)
 			jeosgramApi.AssertNumberOfCalls(t, "Publish", 1)

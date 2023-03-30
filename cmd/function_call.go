@@ -15,7 +15,7 @@ func NewFunctionCallCmd(jeosgram api.JeosgramClient, screenService services.Scre
 		Use:   "call <device> <function> [argument]",
 		Short: "Call a particular function on a device",
 		Args:  cobra.RangeArgs(1, 3),
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			//fmt.Println("functionCall called")
 
 			deviceID, _ := utils.SliceAt(args, 0)
@@ -28,10 +28,11 @@ func NewFunctionCallCmd(jeosgram api.JeosgramClient, screenService services.Scre
 
 			if err != nil {
 				fmt.Println(constants.PInfo, err)
-				return
+				return err
 			}
 
 			fmt.Println("Function return:", value)
+			return nil
 		},
 	}
 

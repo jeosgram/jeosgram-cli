@@ -106,7 +106,11 @@ func Test_LoginCommand(t *testing.T) {
 
 			_, err := cmd.ExecuteC()
 
-			assert.Nil(t, err)
+			if tt.requiresMFA && tt.failMFA {
+				assert.NotNil(t, err)
+			} else {
+				assert.Nil(t, err)
+			}
 
 			if tt.failLogin {
 				jeosgramApi.AssertNumberOfCalls(t, "LoginByPassword", 5)

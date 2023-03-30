@@ -54,7 +54,11 @@ func Test_CallFunctionCommand(t *testing.T) {
 
 			_, err := cmd.ExecuteC()
 
-			assert.Nil(t, err)
+			if tt.shouldFail {
+				assert.NotNil(t, err)
+			} else {
+				assert.Nil(t, err)
+			}
 
 			jeosgramApi.AssertCalled(t, "CallFunction", tt.deviceId, tt.functionName, tt.param)
 			jeosgramApi.AssertNumberOfCalls(t, "CallFunction", 1)

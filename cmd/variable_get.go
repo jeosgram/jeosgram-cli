@@ -17,7 +17,7 @@ func NewGetVariableCmd(jeosgram api.JeosgramClient, screenService services.Scree
 		Use:   "get <device> <variableName>",
 		Short: "Retrieve a value from your device(s)",
 		Args:  cobra.RangeArgs(1, 2),
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			fmt.Println("variableGet called")
 
 			deviceID, _ := utils.SliceAt(args, 0)
@@ -31,10 +31,11 @@ func NewGetVariableCmd(jeosgram api.JeosgramClient, screenService services.Scree
 
 			if err != nil {
 				fmt.Println(constants.PInfo, err)
-				return
+				return err
 			}
 
 			fmt.Println("Variable value:", value)
+			return nil
 
 		},
 	}

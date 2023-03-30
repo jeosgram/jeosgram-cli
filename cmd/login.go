@@ -15,7 +15,7 @@ func NewLoginCmd(jeosgram api.JeosgramClient, screenService services.ScreenServi
 	loginCmd := &cobra.Command{
 		Use:   "login",
 		Short: "Login to Jeosgram account",
-		Run: func(cmd *cobra.Command, args []string) {
+		RunE: func(cmd *cobra.Command, args []string) error {
 			const msg = "Sending login details..."
 
 			for i := 0; i < maxRetry; i++ {
@@ -42,7 +42,7 @@ func NewLoginCmd(jeosgram api.JeosgramClient, screenService services.ScreenServi
 						}
 
 						// TODO(eos175) mostrar un error
-						return
+						return err
 					}
 
 					continue
@@ -51,8 +51,10 @@ func NewLoginCmd(jeosgram api.JeosgramClient, screenService services.ScreenServi
 			end:
 				_ = sessionService.SaveTokens(token)
 				fmt.Println(constants.PSuccess, "Successfully completed login!")
-				return
+				return nil
 			}
+
+			return nil
 		},
 	}
 
