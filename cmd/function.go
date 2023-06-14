@@ -5,11 +5,10 @@ import (
 )
 
 // functionCmd represents the function command
-var functionCmd = &cobra.Command{
-	Use:   "function",
-	Short: "Call functions on your device",
-}
-
-func init() {
-	rootCmd.AddCommand(functionCmd)
+func NewFunctionCmd() *cobra.Command {
+	functionCmd := &cobra.Command{
+		Use:   "function",
+		Short: "Call functions on your device",
+	}
+	return functionCmd
 }

@@ -6,6 +6,7 @@ import (
 	"strings"
 
 	"github.com/AlecAivazis/survey/v2"
+	"github.com/jeosgram/jeosgram-cli/constants"
 )
 
 func isErrorExit(err error) {
@@ -62,7 +63,7 @@ func inputOtp() string {
 func checkUsername(val any) error {
 	v, ok := val.(string)
 	if !ok || v == "" {
-		return fmt.Errorf("%s %s", pError, "You need a username to log in")
+		return fmt.Errorf("%s %s", constants.PError, "You need a username to log in")
 	}
 	return nil
 }
@@ -70,7 +71,7 @@ func checkUsername(val any) error {
 func checkPassword(val any) error {
 	v, ok := val.(string)
 	if !ok || v == "" {
-		return fmt.Errorf("%s %s", pError, "You need a password to log in")
+		return fmt.Errorf("%s %s", constants.PError, "You need a password to log in")
 	}
 	// verificar len
 	return nil
@@ -79,7 +80,7 @@ func checkPassword(val any) error {
 func checkOTp(val any) error {
 	tmp, _ := val.(string)
 	if tmp == "" {
-		return fmt.Errorf("%s %s", pError, "You need a OTP code to log in")
+		return fmt.Errorf("%s %s", constants.PError, "You need a OTP code to log in")
 	}
 	return nil
 }

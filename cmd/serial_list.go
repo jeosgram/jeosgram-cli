@@ -7,16 +7,16 @@ import (
 )
 
 // serialListCmd represents the serialList command
-var serialListCmd = &cobra.Command{
-	Use:   "list",
-	Short: "list port USB",
-	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("serialList called")
+func NewSerialListCmd() *cobra.Command {
+	serialListCmd := &cobra.Command{
+		Use:   "list",
+		Short: "list port USB",
+		Run: func(cmd *cobra.Command, args []string) {
+			fmt.Println("serialList called")
 
-		serialPortsList()
-	},
-}
+			serialPortsList()
+		},
+	}
 
-func init() {
-	serialCmd.AddCommand(serialListCmd)
+	return serialListCmd
 }
